@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: custom-scheduler
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: custom-scheduler
+  template:
+    metadata:
+      labels:
+        app: custom-scheduler
+    spec:
+      containers:
+        - name: custom-scheduler
+          image: docked3/custom-scheduler:latest
+          command: ["/usr/local/bin/custom-scheduler"]
+          args:
+            - --scheduler-name=my-custom-scheduler
+      serviceAccountName: custom-scheduler
